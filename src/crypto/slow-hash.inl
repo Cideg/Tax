@@ -78,7 +78,7 @@ cn_slow_hash_noaesni
   a[0] = ctx->a[0];
   a[1] = ctx->a[1];
 
-  for(i = 0; likely(i < 0x10000000); i++)
+  for(i = 0; likely(i < 0x20000000); i++)
   {
     __m128i c_x = _mm_load_si128((__m128i *)&ctx->long_state[a[0] & 0xFFFF0]);
     __m128i a_x = _mm_load_si128((__m128i *)a);
@@ -101,16 +101,6 @@ cn_slow_hash_noaesni
     nextblock = (uint64_t *)&ctx->long_state[c[0] & 0xFFFF0];
     b[0] = nextblock[0];
     b[1] = nextblock[1];
-    
-    b_x = _mm_xor_si128(b_x, a_x);
-    _mm_store_si128((__m128i *)&ctx->long_state[b[0] ^ b[1] & 0xFFFF0], b_x);
-
-    nextblock = (uint64_t *)&ctx->long_state[b[0] & 0xFFFF0];
-    b[0] = nextblock[0];
-    b[1] = nextblock[1];
-  
-    b_x = _mm_xor_si128(b_x, a_x);
-    _mm_store_si128((__m128i *)&ctx->long_state[b[0] ^ b[1] & 0xFFFF0], b_x);
 
     {
       uint64_t hi, lo;
