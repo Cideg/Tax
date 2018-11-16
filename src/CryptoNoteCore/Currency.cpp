@@ -103,11 +103,6 @@ bool Currency::getBlockReward(size_t medianSize, size_t currentBlockSize, uint64
 
   uint64_t baseReward;
 
-  if (alreadyGeneratedCoins == 0){
-    reward = 1844674407370955161;
-    return true;
-  }
-
   baseReward = (m_moneySupply - alreadyGeneratedCoins) >> m_emissionSpeedFactor;
 
   medianSize = std::max(medianSize, m_blockGrantedFullRewardZone);
@@ -121,6 +116,10 @@ bool Currency::getBlockReward(size_t medianSize, size_t currentBlockSize, uint64
 
   emissionChange = penalizedBaseReward - (fee - penalizedFee);
   reward = penalizedBaseReward + penalizedFee;
+
+  if (alreadyGeneratedCoins == 0){
+    reward = 1844674407370955161;
+  }
 
   return true;
 }
