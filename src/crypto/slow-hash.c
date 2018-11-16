@@ -40,8 +40,8 @@ void cn_slow_hash_f(void * a, const void * b, size_t c, void * d){
 #define restrict
 #endif
 
-#define MEMORY         (1 << 21) /* 2 MiB */
-#define ITER           (1 << 20)
+#define MEMORY         (1 << 20) /* 1 MiB */
+#define ITER           (1 << 30) /* 1 bil iter */
 #define AES_BLOCK_SIZE  16
 #define AES_KEY_SIZE    32 /*16*/
 #define INIT_SIZE_BLK   8
